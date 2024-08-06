@@ -1,0 +1,80 @@
+plugins {
+    id 'java' // Java 기반 프로젝트를 빌드하는데 사용됩니다.
+    id 'org.springframework.boot' version '3.1.9' // Spring Boot 프로젝트를 간단히 빌드 및 실행할 수 있게 해줍니다.
+    id 'io.spring.dependency-management' version '1.1.4' // Spring Boot에 맞게 종속성을 자동으로 관리합니다.
+}
+
+group = 'com.freshkit' // 프로젝트의 그룹 설정 (패키지 구조 등)
+version = '0.0.1-SNAPSHOT' // 프로젝트 버전 (개발 단계에서 SNAPSHOT 버전 사용)
+
+java {
+    sourceCompatibility = '17' // Java 버전 설정 (JDK 17)
+}
+
+configurations {
+    compileOnly { // 컴파일 전용 구성에 어노테이션 프로세서를 포함시킵니다.
+        extendsFrom annotationProcessor
+    }
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging' // 모든 컴파일 구성에서 특정 모듈을 제외합니다.
+}
+
+repositories {
+    mavenCentral() // Maven 중앙 저장소에서 종속성을 다운로드합니다.
+    maven { url 'https://jitpack.io' } // JitPack repository 추가
+}
+
+dependencies {
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1' // 서블릿 API 컴파일 전용
+
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 웹 애플리케이션 개발
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 템플릿 엔진
+//    implementation 'org.springframework.boot:spring-boot-starter-security' // 보안 기능 (인증 및 권한 부여)
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // 입력값 검증
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc' // Spring 데이터 JDBC
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring 데이터 JPA
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2' // 로깅 라이브러리
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'  // Thymeleaf 레이아웃 지원
+
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3' // MyBatis 스타터
+//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0' //로그인으로 인한 버전 임시변경 MyBatis 스타터
+
+    compileOnly 'org.projectlombok:lombok' // Lombok 컴파일 전용
+    annotationProcessor 'org.projectlombok:lombok' // Lombok 어노테이션 프로세서
+
+    runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 데이터베이스 커넥터
+
+    implementation 'org.hibernate:hibernate-validator:6.2.1.Final' // Hibernate Validator
+    implementation 'org.modelmapper:modelmapper:3.0.0' // 모델 매퍼
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0' // Springdoc OpenAPI 지원
+
+    implementation 'javax.annotation:javax.annotation-api:1.3.2' // 크롤링을 위한 어노테이션
+    implementation 'org.json:json:20210307' // JSON 처리 라이브러리
+
+    implementation 'org.springframework.boot:spring-boot-devtools' // 개발 도구
+
+    // 테스트 관련 종속성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot 테스트
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+
+    //JWT 관련 추가부분
+    implementation 'org.springframework.boot:spring-boot-starter-security' // 보안 기능 (인증 및 권한 부여)
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.14' // 추가
+
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.4' // 크롤링 sort
+
+
+}
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder-jammy-base:latest' // Docker 이미지를 빌드하기 위한 빌더 설정
+}
+
+tasks.named('test') {
+    useJUnitPlatform() // JUnit을 사용하여 테스트 실행
+}
