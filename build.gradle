@@ -69,6 +69,8 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.4' // 크롤링 sort
 
+    implementation 'mysql:mysql-connector-java:8.0.32' // 최신 버전으로 업데이트 DB
+
 
 }
 tasks.named('bootBuildImage') {

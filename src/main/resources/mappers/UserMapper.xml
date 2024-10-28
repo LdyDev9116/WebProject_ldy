@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.freshkit.webproject.user.mapper.UserMapper">
+    <select id="existsByUsername" resultType="boolean" parameterType="String">
+        SELECT COUNT(*) > 0
+        FROM MEMBERS
+        WHERE memberId = #{memberId}
+    </select>
+
+    <insert id="insertUser" parameterType="com.freshkit.shop.user.dto.UserEntity">
+        INSERT INTO MEMBERS (memberId, pwd, name, email, phone, role)
+        VALUES (#{memberId}, #{pwd}, #{name}, #{email}, #{phone}, #{role})
+    </insert>
+
+    <select id="findByUsername" parameterType="String" resultType="com.freshkit.shop.user.dto.UserEntity">
+        SELECT * FROM MEMBERS WHERE memberId = #{memberId}
+    </select>
+    <select id="findByUserIdrole" resultType="com.freshkit.shop.user.dto.UserEntity">
+        SELECT * FROM MEMBERS WHERE memberId = #{memberId}
+    </select>
+</mapper>

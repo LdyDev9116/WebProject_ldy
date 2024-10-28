@@ -1,4 +1,4 @@
-package com.freshkit.webproject.payment.dto;//package com.freshkit.shop.payment.dto;
+package com.freshkit.webproject.payment.dto;//package com.freshkit.webproject.payment.dto;
 //
 //public class PaymentInfo {
 //    private String merchantUid;
