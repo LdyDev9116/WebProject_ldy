@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>결제 요청</title>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script>
+        // 포트원(PortOne) 초기화 (가맹점 고유 코드)
+        IMP.init("imp22862720");  // 실제 가맹점 식별 코드를 넣으세요
+
+        async function requestPayment() {
+            const paymentData = {
+                pg: 'kakaopay', // 실제 사용하려는 PG사에 맞게 변경
+                pay_method: 'card', // 결제 수단 (카카오페이는 'card'나 'trans' 등 다양한 수단 지원)
+                merchant_uid: 'order_' + new Date().getTime(), // 고유한 주문 ID
+                name: '구매 상품명',
+                amount: 10000, // 결제 금액
+                buyer_email: 'buyer@example.com',
+                buyer_name: '구매자 이름',
+                buyer_tel: '010-1234-5678',
+                buyer_addr: '서울특별시 강남구 역삼동',
+                buyer_postcode: '123-456'
+            };
+
+            // 결제 요청
+            IMP.request_pay(paymentData, async function (response) {
+                if (response.success) {
+                    console.log('결제 요청 성공:', response);
+
+                    // 결제 성공 시 백엔드에 검증 요청 및 리다이렉트
+                    window.location.href = `/payment-success?impUid=${response.imp_uid}&merchantUid=${response.merchant_uid}`;
+                } else {
+                    console.error('결제 요청 실패:', response);
+                    alert('결제 요청 실패. 다시 시도해 주세요.');
+                    // 결제 실패 시 실패 페이지로 리다이렉트
+                    window.location.href = "/payment-failure";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<h1>결제 요청 페이지</h1>
+<button onclick="requestPayment()">결제하기</button>
+</body>
+</html>

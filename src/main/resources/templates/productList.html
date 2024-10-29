@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+<!-- Navigation bar -->
+<nav>
+    <ul>
+        <li><a href="/prd3">상품카테고리</a></li>
+        <li><a href="/index">홈</a></li>
+        <li><a href="/main">메인</a></li>
+        <li th:if="${isLoggedIn}">
+            <a href="/account-profile">마이페이지</a>
+            <a href="/account-signout">로그아웃</a>
+        </li>
+        <li th:if="${!isLoggedIn}">
+            <a href="/account-signup">회원가입</a>
+            <a href="/account-signin">로그인</a>
+        </li>
+        <li><a href="/customer-service">고객센터</a></li>
+    </ul>
+</nav>
+
+<!-- Product List -->
+<div>
+    <h1>Product List</h1>
+    <ul>
+        <li th:each="product : ${products}">
+            <span th:text="${product.name}"></span>
+            <span th:text="${product.price}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

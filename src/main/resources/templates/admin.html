@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .password-column {
+            max-width: 300px; /* Adjust as needed */
+            white-space: nowrap;
+            overflow: auto;
+            text-overflow: ellipsis;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            float: right;
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .form-container {
+            margin-top: 30px;
+        }
+
+        .form-container input {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>관리자 전용페이지</h1>
+        <button class="btn btn-secondary logout-btn" onclick="window.location.href='/account-signout'">로그아웃</button>
+    </div>
+
+    <h2>사용자 정보</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>회원ID</th>
+                <th class="password-column">비밀번호</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>전화번호</th>
+                <th>권한</th>
+                <th>버튼처리</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.memberId}"></td>
+                <td class="password-column" th:text="${user.pwd}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phone}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="editUser('[[${user.memberId}]]')">수정</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteUser('[[${user.memberId}]]')">삭제</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container form-container">
+    <form id="userForm">
+        <input type="hidden" id="memberId" name="memberId">
+        <div class="form-group">
+            <label for="pwd">비밀번호</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
+        </div>
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="phone">전화번호</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="role">권한</label>
+            <input type="text" class="form-control" id="role" name="role">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="createOrUpdateUser()">저장하기</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function createOrUpdateUser() {
+        var form = document.getElementById('userForm');
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/admin/user', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                location.reload();
+            } else {
+                alert('오류가 발생했습니다.');
+            }
+        };
+        xhr.send(formData);
+    }
+
+    function editUser(memberId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/admin/user/' + memberId, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var user = JSON.parse(xhr.responseText);
+                document.getElementById('memberId').value = user.memberId;
+                document.getElementById('pwd').value = user.pwd;
+                document.getElementById('name').value = user.name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phone;
+                document.getElementById('role').value = user.role;
+            } else {
+                alert('오류가 발생했습니다.');
+            }
+        };
+        xhr.send();
+    }
+
+    function deleteUser(memberId) {
+        if (confirm('이 사용자를 삭제하시겠습니까?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('DELETE', '/admin/user/' + memberId, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    alert('오류가 발생했습니다.');
+                }
+            };
+            xhr.send();
+        }
+    }
+</script>
+</body>
+
+</html>

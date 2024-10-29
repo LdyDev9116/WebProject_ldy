@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Around | Shop Catalog</title>
+  <!-- SEO Meta Tags-->
+  <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
+  <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, dark mode, html5, css3, javascript, gallery, slider, touch, creative">
+  <meta name="author" content="Createx Studio">
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+  <link rel="mask-icon" color="#6366f1" href="assets/favicon/safari-pinned-tab.svg">
+  <meta name="msapplication-TileColor" content="#080032">
+  <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="white">
+  <style>
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .4s .2s ease-in-out;
+      transition: all .4s .2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+
+    .dark-mode .page-loading {
+      background-color: #121519;
+    }
+
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+      opacity: 0;
+    }
+
+    .page-loading.active>.page-loading-inner {
+      opacity: 1;
+    }
+
+    .page-loading-inner>span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #6f788b;
+    }
+
+    .dark-mode .page-loading-inner>span {
+      color: #fff;
+      opacity: .6;
+    }
+
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      background-color: #d7dde2;
+      border-radius: 50%;
+      opacity: 0;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite;
+    }
+
+    .dark-mode .page-spinner {
+      background-color: rgba(255, 255, 255, .25);
+    }
+
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+
+      50% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+    @keyframes spinner {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+
+      50% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+    /* 배너이미지 조정 내꺼임 */
+    .custom-margin {
+      margin-top: 70px;
+      /* 상단 여백 추가 */
+    }
+
+    .card-hover.bg-secondary {
+      background-color: white !important;
+      /* !important를 사용하여 우선 순위를 강제합니다. */
+    }
+    /* 배너이미지 조정 내꺼임 */
+    /* Correcting top-nav positioning 로그인 */
+    .text-button {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav {
+      position: absolute;
+      top: 10px;
+      right: 200px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 14px; /* 동일한 글씨 크기 적용 */
+    }
+    .top-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+      font-size: 14px; /* 동일한 글씨 크기 적용 */
+    }
+
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      font-size: 14px; /* 동일한 글씨 크기 적용 */
+      margin: 0 10px; /* 다른 항목들과 동일한 간격 유지 */
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f8f8f8;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      font-size: 14px; /* 동일한 글씨 크기 적용 */
+    }
+
+    .dropdown-content a {
+      color: #555;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px; /* 동일한 글씨 크기 적용 */
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    /* (기존 CSS 코드 유지) */
+    /* 배너이미지 조정 내꺼임 */
+    .custom-margin {
+      margin-top: 70px;
+      /* 상단 여백 추가 */
+    }
+
+    .card-hover.bg-secondary {
+      background-color: white !important;
+      /* !important를 사용하여 우선 순위를 강제합니다. */
+    }
+
+    /* Correcting top-nav positioning 로그인 */
+    .top-nav {
+      position: absolute;
+      top: 10px;
+      right: 200px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 14px;
+      /* 동일한 글씨 크기 적용 */
+    }
+
+    .top-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+      font-size: 14px;
+      /* 동일한 글씨 크기 적용 */
+    }
+
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      font-size: 14px;
+      /* 동일한 글씨 크기 적용 */
+      margin: 0 10px;
+      /* 다른 항목들과 동일한 간격 유지 */
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f8f8f8;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      font-size: 14px;
+      /* 동일한 글씨 크기 적용 */
+    }
+
+    .dropdown-content a {
+      color: #555;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+      /* 동일한 글씨 크기 적용 */
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    /* Correcting top-nav positioning 로그인 */
+    /*크롤링 데이터 */
+    .product-image-container {
+      height: 226px;
+      width: 226px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 0 auto;
+      position: relative;
+      left: 32px;
+      /* 오른쪽으로 32 이동 */
+    }
+
+    .product-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-hover {
+      width: 250px;
+      /* 카드의 고정 너비 설정 */
+      height: auto;
+      position: relative;
+      background-color: white !important;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: center;
+      /* 중앙 정렬 추가 */
+    }
+
+    .price-margin {
+      width: 100%;
+      margin-top: 10px;
+      padding: 0 15px;
+      text-align: center;
+      /* 중앙 정렬 추가 */
+      position: relative;
+      /* 부모 요소에 상대 위치 설정 */
+    }
+
+    .product-title {
+      white-space: nowrap;
+      /* 줄 바꿈 없이 한 줄로 설정 */
+      overflow: visible;
+      /* 오버플로우가 잘리지 않도록 설정 */
+      text-overflow: unset;
+      /* "..."을 표시하지 않도록 설정 */
+      display: block;
+      width: 100%;
+      text-align: center;
+      /* 중앙 정렬 추가 */
+      margin-top: 50px;
+      font-weight: bold;
+      /* 굵은 글씨 */
+      font-size: 15px;
+      /* 텍스트 크기 */
+    }
+
+    .product-price {
+      white-space: nowrap;
+      /* 줄 바꿈 없이 한 줄로 설정 */
+      overflow: hidden;
+      /* 텍스트가 잘리지 않도록 설정 */
+      text-overflow: ellipsis;
+      /* "..."을 표시하여 잘린 부분을 표시 */
+      display: block;
+      width: 100%;
+      text-align: left;
+      /* 왼쪽 정렬 */
+    }
+
+    .add-to-cart {
+      position: absolute;
+      right: -50px;
+      /* 오른쪽 끝으로 이동 */
+      bottom: -40px;
+    }
+
+    .custom-heart-button .ai-heart {
+      position: relative;
+      right: -30px;
+      /* 원하는 만큼 오른쪽으로 이동 */
+    }
+
+    /* 추가 css */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      background-color: #f4f4f4;
+    }
+
+    .page-wrapper {
+      width: 1400px;
+      max-width: 1400px;
+      margin-top: 430px !important;
+      margin-left: 30px !important;
+      display: flex;
+      justify-content: center;
+      /* 중앙 정렬 */
+      margin: 300px auto 200px;
+      background-color: #fff;
+      border-radius: 10px;
+      margin-bottom: 50px;
+    }
+
+    .content-area {
+      width: 60%;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* 제품 관련 스타일 */
+    .product-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .product-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background-color: #e0e0e0;
+    }
+
+    .product-info {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+
+    .product-info a {
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .product-info a:hover {
+      text-decoration: underline;
+    }
+
+    .qty-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-qty {
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      border-radius: 3px;
+      margin: 0 2px;
+    }
+
+    .btn-qty:hover {
+      background-color: #f0f0f0;
+    }
+
+    .input-qty {
+      width: 35px;
+      text-align: center;
+      border: none;
+      background-color: #f4f4f4;
+    }
+
+    .remove-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .delete-img {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* 배송비 섹션 */
+    .shipping-summary {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      border: 1px solid #dcdcdc;
+      margin-top: 20px;
+    }
+
+    .shipping-cost,
+    .free-shipping-threshold,
+    .remaining-amount {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .shipping-cost strong,
+    .remaining-amount strong,
+    .total-cost strong {
+      color: #ff6b00;
+      font-size: 16px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background-color: #dcdcdc;
+      border-radius: 8px;
+      height: 15px;
+      margin: 20px 0;
+    }
+
+    .progress {
+      height: 100%;
+      width: 30%;
+      background-color: orange;
+      border-radius: 8px;
+    }
+
+    .product-price-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .separator {
+      margin: 0 8px;
+    }
+
+    /* 액션 컨테이너 */
+    .action-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .renewal-cart-label {
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+
+    .renewal-cart-label input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    .cart-actions {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Checkout Area 스타일 */
+    .checkout-area {
+      width: 300px;
+      padding: 20px;
+      margin-left: 880px;
+      margin-top: -240px;
+      /* 적절한 간격을 설정 */
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+      /* 모든 방향에 선명한 그림자 */
+    }
+
+    .order-summary h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .total-price {
+      font-weight: bold;
+      color: #ff6b00;
+    }
+
+    .btn-order {
+      width: 100%;
+      padding: 10px;
+      background-color: #ff6b00;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-order:hover {
+      background-color: #e65a00;
+    }
+
+    /* 추가된 스타일 */
+    .time-extend-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .remaining-time {
+      margin: 0;
+    }
+
+  </style>
+  <!-- Page loading scripts-->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+        }, 1500);
+      };
+    })();
+  </script>
+  <!-- Import Google Font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
+  <!-- Vendor styles-->
+  <link rel="stylesheet" media="screen" href="assets/vendor/nouislider/dist/nouislider.min.css" />
+  <link rel="stylesheet" media="screen" href="assets/vendor/swiper/swiper-bundle.min.css" />
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<!-- Body-->
+
+<body>
+<!-- Page loading spinner-->
+<div class="page-loading active">
+  <div class="page-loading-inner">
+    <div class="page-spinner"></div><span>Loading...</span>
+  </div>
+</div>
+<!-- Page wrapper-->
+<main class="page-wrapper">
+  <!-- Search modal-->
+  <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" data-focus-input="#search">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header d-block position-relative border-0 pb-3">
+          <form class="position-relative w-100 mt-2 mb-4">
+            <button class="btn-close position-absolute top-50 end-0 translate-middle-y m-0 me-n1" type="reset" data-bs-dismiss="modal"></button><i class="ai-search fs-xl position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+            <input class="form-control form-control-lg px-5" type="search" placeholder="Type to search" data-focus-on-open="[&quot;modal&quot;, &quot;#searchModal&quot;]">
+          </form>
+          <div class="fs-xs fw-medium text-muted text-uppercase">Suggestions</div>
+        </div>
+        <div class="modal-body pt-3">
+          <div class="d-flex align-items-center border-bottom pb-4 mb-4"><a class="position-relative d-inline-block flex-shrink-0 bg-secondary rounded-1" href="shop-single.html"><span class="badge bg-success position-absolute top-0 start-100 translate-middle ms-n1">Shop</span><img src="assets/img/shop/products/01.png" width="90" alt="Product"></a>
+            <div class="ps-3">
+              <h4 class="h6 mb-2"><a href="shop-single.html">매콤 오징어 떡볶이</a></h4><span class="mb-0 me-2">9900원</span>
+              <del class="fs-sm text-muted ms-auto">12900원</del>
+            </div>
+          </div>
+          <div class="d-flex align-items-center border-bottom pb-4 mb-4"><a class="position-relative d-inline-block flex-shrink-0" href="#"><span class="badge bg-info position-absolute top-0 start-100 translate-middle ms-n1">Blog</span><img class="rounded-1" src="assets/img/landing/shop/instagram/02.jpg" width="90" alt="Post"></a>
+            <div class="ps-3">
+              <h4 class="h6 mb-0"><a href="#">밀키트맛있는. Tips &amp; 살짝매콤.</a></h4>
+            </div>
+          </div>
+          <div class="d-flex align-items-center"><a class="position-relative d-inline-block flex-shrink-0 bg-secondary rounded-1" href="shop-single.html"><span class="badge bg-success position-absolute top-0 start-100 translate-middle ms-n1">Shop</span><img src="assets/img/shop/products/06.png" width="90" alt="Product"></a>
+            <div class="ps-3">
+              <h4 class="h6 mb-2"><a href="shop-single.html">오징어 해물 파전 검색</a></h4><span class="mb-0 me-2">6600원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cart offcanvas-->
+  <div class="offcanvas offcanvas-end py-2 p-sm-4 p-md-5" id="cartOffcanvas" style="width: 680px;">
+    <!-- Title-->
+    <div class="px-4 pt-3">
+      <div class="d-flex justify-content-between align-items-center border-bottom pb-3 pb-sm-4">
+        <h2 class="offcanvas-title d-flex align-items-center mb-1">Your cart <span class="fs-base fw-normal text-muted ms-3">(3 items)</span></h2>
+        <button class="btn-close mb-1 me-n1" type="button" data-bs-dismiss="offcanvas" data-bs-target="#cartOffcanvas"></button>
+      </div>
+    </div>
+
+    <!-- Item-->
+    <div class="d-sm-flex align-items-center border-top pt-4"><a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-sm-2 p-md-3 mb-2 mb-sm-0" href="shop-single.html"><img src="assets/img/shop/cart/03.png" width="110" alt="Product"></a>
+      <div class="w-100 pt-1 ps-sm-4">
+        <div class="d-flex">
+          <div class="me-3">
+            <h3 class="h5 mb-2"><a href="shop-single.html">Set for a dinner party of 7 items</a></h3>
+          </div>
+          <div class="text-end ms-auto">
+            <div class="fs-5 mb-2">$47.00</div>
+          </div>
+        </div>
+        <div class="count-input ms-n3">
+          <button class="btn btn-icon fs-xl" type="button" data-decrement>-</button>
+          <input class="form-control" type="number" value="1" readonly>
+          <button class="btn btn-icon fs-xl" type="button" data-increment>+</button>
+        </div>
+        <div class="nav justify-content-end mt-n5 mt-sm-n3"><a class="nav-link fs-xl p-2" href="#" data-bs-toggle="tooltip" title="Remove"><i class="ai-trash"></i></a></div>
+      </div>
+    </div>
+  </div>
+  <!-- Coupon input + total-->
+  <div class="px-4 pb-3 pb-sm-4 pb-sm-5">
+    <div class="d-sm-flex align-items-center border-top pt-4">
+      <div class="input-group input-group-sm border-dashed mb-3 mb-sm-0 me-sm-4 me-md-5">
+        <input class="form-control text-uppercase" type="text" placeholder="Your coupon code">
+        <button class="btn btn-secondary" type="button">Apply coupon</button>
+      </div>
+      <div class="d-flex align-items-center justify-content-center"><span class="fs-xl me-3">Total:</span><span class="h3 mb-0">$92.00</span></div>
+    </div>
+  </div>
+  <!-- Action buttons-->
+<!--  <div class="d-flex align-items-center justify-content-between px-4 pb-3">-->
+<!--    <div class="nav d-none d-sm-block"><a class="nav-link fw-semibold px-0" href="#cartOffcanvas" data-bs-dismiss="offcanvas"><i class="ai-chevron-left fs-xl me-2"></i>Back to shop</a></div><a class="btn btn-lg btn-primary w-100 w-sm-auto" href="shop-checkout.html">Proceed to checkout<i class="ai-chevron-right ms-2 me-n1"></i></a>-->
+<!--  </div>-->
+  </div>
+  <!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page-->
+  <header class="navbar navbar-expand-lg fixed-top bg-light">
+    <!-- 페이지 이동  로그인-->
+    <div class="top-nav" th:if="${isLoggedIn != null && isLoggedIn}">
+      <a th:href="@{/account-signout}" class="nav-link p-2">로그아웃</a> |
+      <a th:href="@{/account-profile}" class="nav-link p-2">마이페이지</a> |
+      <div class="time-extend-container">
+        <p class="remaining-time">남은 시간: <span id="remainingTime" data-remaining-time="${remainingTime}"></span></p>
+        <button id="extendTokenBtn" class="text-button">로그인 연장</button> |
+      </div>
+      <div class="dropdown">
+        <a href="javascript:void(0)">고객센터 ▼</a>
+        <div class="dropdown-content">
+          <a href="#">문의하기</a>
+          <a href="#">FAQ</a>
+          <a href="#">지원 센터</a>
+        </div>
+      </div>
+    </div>
+    <div class="top-nav" th:if="${isLoggedIn == null || !isLoggedIn}">
+      <a th:href="@{/account-signup}" class="nav-link p-2">회원가입</a> |
+      <a th:href="@{/account-signin}" class="nav-link p-2">로그인</a> |
+      <div class="dropdown">
+        <a href="javascript:void(0)">고객센터 ▼</a>
+        <div class="dropdown-content">
+          <a href="#">문의하기</a>
+          <a href="#">FAQ</a>
+          <a href="#">지원 센터</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container"><a class="navbar-brand pe-sm-3" href="main"><span class="text-primary flex-shrink-0 me-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                <a href="main"><image xlink:href="assets/img/shop/logo_최종.png" width="120" height="120" x="70" y="50" /></a>
+            </svg></span><span class="d-none d-sm-inline">Fresh kit</span></a>
+
+      <div class="nav align-items-center order-lg-3 ms-n1 me-3 me-sm-0">
+        <a class="nav-link fs-4 p-2 mx-sm-1" href="#searchModal" data-bs-toggle="modal">
+          <i class="ai-search"></i>
+        </a>
+        <a class="nav-link fs-4 p-2 mx-sm-1 d-none d-sm-flex" href="/account-signin"><i class="ai-user"></i></a>
+        <a class="nav-link position-relative fs-4 p-2" href="#cartOffcanvas" data-bs-toggle="offcanvas">
+          <i class="ai-cart"></i><span class="badge bg-primary fs-xs position-absolute end-0 top-0 me-n1" style="padding: .25rem .375rem;">3</span>
+        </a>
+      </div>
+      <button class="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+      <nav class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
+            <div class="dropdown-menu overflow-hidden p-0">
+              <div class="d-lg-flex">
+                <div class="mega-dropdown-column pt-1 pt-lg-3 pb-lg-4">
+                  <ul class="list-unstyled mb-0">
+                    <li><a class="dropdown-item" href="prd3">전체</a><span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0" ></span></li>
+                    <li><a class="dropdown-item" href="prd3">양식</a><span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0" ></span></li>
+                    <li><a class="dropdown-item" href="prd3">한식</a><span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0" ></span></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-column pb-2 pt-lg-3 pb-lg-4">
+                  <ul class="list-unstyled mb-0">
+                    <li><a class="dropdown-item" href="prd3">중식/ 일식</a><span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 zindex-2 opacity-0" style="background-image: url(/assets/img/megamenu/web-studio.jpg);"></span></li>
+                    <li><a class="dropdown-item" href="prd3">분식</a><span class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 zindex-2 opacity-0" style="background-image: url(/assets/img/megamenu/web-studio.jpg);"></span></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-column position-relative border-start zindex-3"></div>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="prd3">신제품 </a></li>
+          <li class="nav-item"><a class="nav-link" href="prd3">베스트</a></li>
+          <li class="nav-item"><a class="nav-link" href="prd3">특가</a></li>
+          <li class="nav-item"><a class="nav-link" href="prd3">이벤트</a></li>
+          <li class="nav-item border-top mt-2 py-2 d-sm-none"><a class="nav-link" href="profile"><i class="ai-user fs-lg me-2"></i>Sign In</a></li>
+        </ul>
+        <div class="d-sm-none p-3 mt-n3"><a class="btn btn-primary w-100  mb-1" href="https://themes.getbootstrap.com/product/around-multipurpose-template-ui-kit/" target="_blank" rel="noopener"><i class="ai-cart fs-xl me-2 ms-n1"></i>Buy now</a></div>
+      </nav>
+    </div>
+  </header>
+  <!-- Page content-->
+  <!-- <div class="container py-5 mt-5 mb-lg-4 mb-xl-5"> -->
+  <div class="container py-5 mt-5 mb-lg-4 mb-xl-5" style="max-width: 1400px;"> <!-- 기본값보다 크게 조정 -->
+
+    <!-- Breadcrumb-->
+    <nav aria-label="breadcrumb">
+      <ol class="pt-lg-3 pb-2 breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shop catalog</li>
+      </ol>
+    </nav>
+    <!-- Content 영역-->
+
+    <div class="container py-5 mt-5 mb-lg-4 mb-xl-5" style="max-width: 1400px;">
+      <div class="page-wrapper">
+        <div class="content-area">
+          <h1 class="page-title">장바구니</h1>
+          <div class="action-container">
+            <label class="renewal-cart-label">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggle-all">
+                <label class="form-check-label d-flex align-items-center" for="toggle-all"><span
+                        class="text-nav fw-medium">전체선택</span></label>
+              </div>
+            </label>
+            <div class="cart-actions">
+              <span id="delete-all">전체삭제</span>
+              <span id="delete-selected">선택삭제</span>
+            </div>
+          </div>
+
+          <div class="product-list">
+            <div th:if="${orderItems.isEmpty()}">
+              <p>장바구니에 상품이 없습니다.</p>
+            </div>
+            <div th:if="${!orderItems.isEmpty()}">
+              <div th:each="item : ${orderItems}" class="product-item" th:attr="data-product-id=${item.productId}">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="select-${item.productId}">
+                  <label class="form-check-label d-flex align-items-center" for="select-${item.productId}"></label>
+                </div>
+                <div class="product-info">
+                  <a th:href="@{/product/${item.productId}}" th:text="${item.productName}">상품명</a>
+                </div>
+                <div class="qty-group" th:attr="data-product-id=${item.productId}">
+                  <button type="button" class="btn-qty decrement">-</button>
+                  <input type="text" class="input-qty" th:value="${item.quantity}" readonly>
+                  <button type="button" class="btn-qty increment">+</button>
+                  <div class="product-price" th:attr="data-price=${item.price}" style="margin-left: 30px;"
+                       th:text="${item.totalPrice} + '원'">가격</div>
+                </div>
+                <button class="remove-btn delete-btn">
+                  <img src="assets/img/shop/products/delete-button.png" alt="삭제" class="delete-img">
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="shipping-summary">
+            <div class="progress-bar-container">
+              <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="shipping-cost">배송비 <strong id="shippingCost">3,000원</strong></div>
+            <div class="free-shipping-threshold">40,000원 이상 무료배송</div>
+            <div class="remaining-amount"> <span id="remainingAmount">0</span> 원 더 담으면 무료배송</div>
+            <div class="product-price-summary">
+              <strong> 상품가격 <span id="productTotalPrice" th:text="${totalCartPrice + 0} + '원'">0원</span></strong>
+              <span class="separator">+</span>
+              <span>배송비 <strong id="shippingCostSummary">3,000원</strong></span>
+              <span class="separator">=</span>
+              <span class="total-cost" id="totalPrice" th:text="${totalCartPrice + 3000} + '원'" style="color: #ff6b00;"><strong>0원</strong></span>
+            </div>
+          </div>
+
+          <div class="checkout-area">
+            <div class="order-summary">
+              <h3>결제예정 금액</h3>
+              <div class="summary-item">
+                <span>상품금액</span>
+                <span id="summaryProductTotalPrice" th:text="${totalCartPrice + 0} + '원'">0원</span>
+              </div>
+              <div class="summary-item">
+                <span>할인금액</span>
+                <span>0원</span>
+              </div>
+              <div class="summary-item">
+                <span>배송비</span>
+                <span id="summaryShippingCost">3,000원</span>
+              </div>
+              <div class="summary-item">
+                <span>총 결제예정금액</span>
+                <span class="total-price" id="summaryTotalPrice" th:text="${totalCartPrice + 3000} + '원'">0원</span>
+              </div>
+              <button class="btn-order">주문하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content 영역 -->
+  </div>
+  </div>
+  <!-- Sidebar toggle button-->
+  <button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" data-bs-toggle="offcanvas" data-bs-target="#shopSidebar"><i class="ai-filter me-2"></i>Filters</button>
+</main>
+<!-- Footer-->
+<footer class="footer bg-dark position-relative pb-4 pt-md-3 py-lg-4 py-xl-5">
+  <div class="d-none d-dark-mode-block position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255, .02);"></div>
+  <div class="dark-mode container position-relative zindex-2 pt-5 pb-2">
+    <!-- Columns with links-->
+    <div class="row" id="links">
+      <div class="col-md-3 col-xl-2 pb-2 pb-md-0">
+        <h3 class="h6 text-uppercase d-none d-md-block">유용한 링크</h3><a class="btn-more h6 mb-1 text-uppercase text-decoration-none d-flex align-items-center collapsed d-md-none" href="#useful" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="useful" data-show-label="Useful links" data-hide-label="Useful links"></a>
+        <div class="collapse d-md-block" id="useful" data-bs-parent="#links">
+          <ul class="nav flex-column pb-2 pb-md-0">
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">인기 급상승</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">판매</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">회사소개</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">블로그</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">연락하다</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">배송 및 &amp; 반품</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">배송정보</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-xl-2 pb-2 pb-md-0">
+        <h3 class="h6 text-uppercase d-none d-md-block">카테고리</h3><a class="btn-more h6 mb-1 text-uppercase text-decoration-none d-flex align-items-center collapsed d-md-none" href="#decors" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="decors" data-show-label="Decors" data-hide-label="Decors"></a>
+        <div class="collapse d-md-block" id="decors" data-bs-parent="#links">
+          <ul class="nav flex-column pb-2 pb-md-0">
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">신제품</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">베스트</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">특가</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">선물하기</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">이벤트</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">단체주문</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">추천제품</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 col-xl-2 pb-2 pb-md-0">
+        <h3 class="h6 text-uppercase d-none d-md-block">고객센터</h3><a class="btn-more h6 mb-1 text-uppercase text-decoration-none d-flex align-items-center collapsed d-md-none" href="#categories" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="categories" data-show-label="Categories" data-hide-label="Categories"></a>
+        <div class="collapse d-md-block" id="categories" data-bs-parent="#links">
+          <ul class="nav flex-column pb-2 pb-md-0">
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">일대일 문의하기</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">대량구매 문의</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">공지사항</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#"></a>자주 묻는 질의</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3 pb-2 pb-md-0">
+        <h3 class="h6 text-uppercase d-none d-md-block">회사소개</h3><a class="btn-more h6 mb-1 text-uppercase text-decoration-none d-flex align-items-center collapsed d-md-none" href="#showroom" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="showroom" data-show-label="Showroom" data-hide-label="Showroom"></a>
+        <div class="collapse d-md-block" id="showroom" data-bs-parent="#links">
+          <ul class="nav flex-column pb-3">
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="#">경기도 성남시 중원구 갈마치로 288번길 26(상대원동)</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="mailto:email@example.com">tmznf91116@naver.com</a></li>
+            <li class="nav-item"><a class="nav-link fw-normal px-0 py-1" href="+1544 1004">1544 - 1004</a></li>
+          </ul>
+          <ul class="list-unstyled mb-0 pb-3 pb-md-0">
+            <li class="text-nav mb-2">월 ~ 금: 8:00 - 21:00</li>
+            <li class="text-nav mb-2">토요일: 8:00 - 21:00</li>
+            <li class="text-nav">일요일: 8:00 - 21:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-xl-3 mt-md-2 mt-xl-0 pt-2 pt-md-4 pt-xl-0">
+        <h3 class="h6 text-uppercase mb-1 pb-1">앱 다운로드</h3>
+        <div class="d-flex d-xl-block d-xxl-flex"><a class="btn btn-secondary px-3 py-2 mt-3 me-3" href="#"><img class="mx-1" src="/assets/img/market/appstore-light.svg" width="120" alt="App Store"></a><a class="btn btn-secondary px-3 py-2 mt-3" href="#"><img class="mx-1" src="/assets/img/market/googleplay-light.svg" width="119" alt="Google Play"></a></div>
+      </div>
+    </div>
+    <!-- Nav + Switcher-->
+    <div class="d-sm-flex align-items-end justify-content-between border-bottom mt-2 mt-sm-1 pt-4 pt-sm-5">
+      <!-- Nav-->
+      <nav class="d-flex mb-3 mb-sm-4"><a class="nav-link text-muted fs-sm fw-normal ps-0 pe-2 py-2 me-4" href="#">고객 지원</a><a class="nav-link text-muted fs-sm fw-normal ps-0 pe-2 py-2 me-4" href="#">Privacy</a><a class="nav-link text-muted fs-sm fw-normal ps-0 pe-2 py-2 me-sm-4" href="#">Terms of use</a></nav>
+      <!-- Language / currency switcher-->
+      <div class="dropdown mb-4">
+        <button class="btn btn-outline-secondary dropdown-toggle px-4" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><img class="me-2" src="/assets/img/flags/en.png" width="18" alt="English / USD">Eng / USD</button>
+        <div class="dropdown-menu dropdown-menu-end my-1">
+          <div class="dropdown-item">
+            <select class="form-select form-select-sm">
+              <option value="usd">$ USD</option>
+              <option value="eur">€ EUR</option>
+              <option value="ukp">£ UKP</option>
+              <option value="jpy">¥ JPY</option>
+            </select>
+          </div><a class="dropdown-item pb-1" href="#"><img class="me-2" src="/assets/img/flags/fr.png" width="18" alt="Français">Français</a><a class="dropdown-item pb-1" href="#"><img class="me-2" src="/assets/img/flags/de.png" width="18" alt="Deutsch">Deutsch</a><a class="dropdown-item" href="#"><img class="me-2" src="/assets/img/flags/it.png" width="18" alt="Italiano">Italiano</a>
+        </div>
+      </div>
+    </div>
+    <!-- Logo + Socials + Cards-->
+    <div class="d-sm-flex align-items-center pt-4">
+      <div class="d-sm-flex align-items-center pe-sm-2"><a class="navbar-brand d-inline-flex align-items-center me-sm-5 mb-4 mb-sm-0" href="index.html"><span class="text-primary flex-shrink-0 me-2">
+
+            <div class="text-nowrap mb-4 mb-sm-0"><a class="btn btn-icon btn-sm btn-secondary btn-telegram rounded-circle mx-2 ms-sm-0 me-sm-3" href="#"><i class="ai-telegram"></i></a><a class="btn btn-icon btn-sm btn-secondary btn-instagram rounded-circle mx-2 ms-sm-0 me-sm-3" href="#"><i class="ai-instagram"></i></a><a class="btn btn-icon btn-sm btn-secondary btn-facebook rounded-circle mx-2 ms-sm-0 me-sm-3" href="#"><i class="ai-facebook"></i></a><a class="btn btn-icon btn-sm btn-secondary btn-pinterest rounded-circle mx-2 ms-sm-0 me-sm-3" href="#"><i class="ai-pinterest"></i></a></div>
+            </span></a>
+      </div><img class="ms-sm-auto" src="/assets/img/shop/footer-cards.png" width="187" alt="Accepted cards">
+    </div>
+  </div>
+  <div class="pt-5 pt-lg-0"></div>
+</footer>
+<!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll>
+  <svg viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"></circle>
+  </svg><i class="ai-arrow-up"></i></a>
+<!-- Vendor scripts: js libraries and plugins-->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="assets/vendor/nouislider/dist/nouislider.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<!-- Main theme script-->
+<script src="assets/js/theme.min.js"></script>
+<!-- Custom script: 장바구니 추가 기능 -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log('DOM fully loaded and parsed');
+
+    const toggleAllCheckbox = document.getElementById("toggle-all");
+    const itemCheckboxes = document.querySelectorAll(".form-check-input");
+    const deleteAllButton = document.getElementById("delete-all");
+    const deleteSelectedButton = document.getElementById("delete-selected");
+
+    // 전체 선택 및 해제 기능
+    toggleAllCheckbox.addEventListener("change", function () {
+      itemCheckboxes.forEach(checkbox => {
+        checkbox.checked = toggleAllCheckbox.checked;
+      });
+    });
+
+    // 전체 삭제 기능
+    deleteAllButton.addEventListener("click", function () {
+      if (confirm("정말 모든 항목을 삭제하시겠습니까?")) {
+        fetch('/remove-all-from-cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  if (data.message === "All items removed") {
+                    document.querySelectorAll('.product-item').forEach(item => {
+                      item.remove();
+                    });
+                    // 총 결제예정금액 업데이트
+                    updateTotalPrice();
+                  } else {
+                    console.error('Failed to remove all items:', data.message);
+                  }
+                })
+                .catch(error => {
+                  console.error('Error removing all items:', error);
+                });
+      }
+    });
+
+    // 선택 삭제 기능
+    deleteSelectedButton.addEventListener("click", function () {
+      if (confirm("선택한 항목을 삭제하시겠습니까?")) {
+        const selectedProductIds = [];
+        itemCheckboxes.forEach(checkbox => {
+          if (checkbox.checked && checkbox.closest(".product-item")) {
+            const productId = checkbox.closest(".product-item").getAttribute("data-product-id");
+            console.log(`Selected Product ID: ${productId}`); // Debug 로그 추가
+            selectedProductIds.push(productId);
+          }
+        });
+
+        console.log(`Selected Product IDs: ${selectedProductIds}`); // Debug 로그 추가
+
+        if (selectedProductIds.length > 0) {
+          const requestBody = JSON.stringify(selectedProductIds);
+          console.log(`Request Body: ${requestBody}`); // Request body 로그 추가
+
+          fetch('/remove-selected-from-cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: requestBody
+          })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+                    if (data.message === "Selected items removed") {
+                      selectedProductIds.forEach(productId => {
+                        const item = document.querySelector(`.product-item[data-product-id="${productId}"]`);
+                        if (item) {
+                          item.remove();
+                        }
+                      });
+                      // 총 결제예정금액 업데이트
+                      updateTotalPrice();
+                    } else {
+                      console.error('Failed to remove selected items:', data.message);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Error removing selected items:', error);
+                  });
+        }
+      }
+    });
+
+    // (증가/감소) 버튼 처리
+    const qtyGroups = document.querySelectorAll('.qty-group');
+
+    qtyGroups.forEach(qtyGroup => {
+      const decrementButton = qtyGroup.querySelector('.btn-qty.decrement');
+      const incrementButton = qtyGroup.querySelector('.btn-qty.increment');
+      const qtyInput = qtyGroup.querySelector('.input-qty');
+      const productPrice = qtyGroup.querySelector('.product-price');
+      const dataPrice = productPrice.getAttribute('data-price');
+      const unitPrice = parseFloat(dataPrice);
+
+      console.log('dataPrice:', dataPrice); // data-price 속성 확인 로그
+
+      const updateCart = (productId, action) => {
+        fetch(`/update-cart`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId, action })
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  if (data.success) {
+                    qtyInput.value = data.newQuantity;
+                    productPrice.textContent = (data.newQuantity * unitPrice).toFixed(0) + '원';
+                    console.log('currentQty:', data.newQuantity, 'totalPrice:', (data.newQuantity * unitPrice).toFixed(0));
+                    // 총 결제예정금액 업데이트
+                    updateTotalPrice();
+                  } else {
+                    console.error('Failed to update cart:', data.message);
+                  }
+                })
+                .catch(error => {
+                  console.error('Error updating cart:', error);
+                });
+      };
+
+      decrementButton.addEventListener('click', function () {
+        let productId = qtyGroup.getAttribute('data-product-id');
+        updateCart(productId, 'decrement');
+      });
+
+      incrementButton.addEventListener('click', function () {
+        let productId = qtyGroup.getAttribute('data-product-id');
+        updateCart(productId, 'increment');
+      });
+    });
+
+    // 총 결제예정금액 업데이트 함수
+    const updateTotalPrice = () => {
+      let totalPrice = 0;
+      document.querySelectorAll('.product-price').forEach(priceElement => {
+        const price = parseFloat(priceElement.textContent.replace('원', ''));
+        totalPrice += price;
+      });
+
+      const shippingCostElement = document.getElementById('shippingCost');
+      const shippingCostSummaryElement = document.getElementById('shippingCostSummary');
+      const totalPriceElement = document.getElementById('totalPrice');
+      const summaryTotalPriceElement = document.getElementById('summaryTotalPrice');
+      const remainingAmountElement = document.getElementById('remainingAmount');
+      const progressBar = document.getElementById('progressBar');
+
+      let shippingCost = 3000;
+      const freeShippingThreshold = 40000;
+
+      if (totalPrice >= freeShippingThreshold) {
+        shippingCost = 0;
+      }
+
+      const remainingAmount = Math.max(freeShippingThreshold - totalPrice, 0);
+
+      const progressPercentage = Math.min((totalPrice / freeShippingThreshold) * 100, 100);
+
+      progressBar.style.width = progressPercentage + '%';
+
+      shippingCostElement.textContent = shippingCost.toLocaleString() + '원';
+      shippingCostSummaryElement.textContent = shippingCost.toLocaleString() + '원';
+      remainingAmountElement.textContent = remainingAmount.toLocaleString();
+      totalPriceElement.textContent = (totalPrice + shippingCost).toLocaleString() + '원';
+      summaryTotalPriceElement.textContent = (totalPrice + shippingCost).toLocaleString() + '원';
+    };
+
+    // 페이지 로드 시 총 결제예정금액 업데이트
+    updateTotalPrice();
+
+  });
+
+  // 개별 (이미지) 삭제 기능
+  document.querySelectorAll('.delete-btn').forEach(deleteButton => {
+    deleteButton.addEventListener('click', function () {
+      if (confirm("이 항목을 삭제하시겠습니까?")) {
+        const productId = this.closest(".product-item").getAttribute("data-product-id");
+        console.log(`Product ID to delete: ${productId}`); // Debug 로그 추가
+
+        fetch('/remove-from-cart', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId })
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  if (data.message === "Item removed") {
+                    const item = document.querySelector(`.product-item[data-product-id="${productId}"]`);
+                    if (item) {
+                      item.remove();
+                    }
+                    // 총 결제예정금액 업데이트
+                    updateTotalPrice();
+                  } else {
+                    console.error('Failed to remove item:', data.message);
+                  }
+                })
+                .catch(error => {
+                  console.error('Error removing item:', error);
+                });
+      }
+    });
+  });
+
+  // 로그인 연장 및 남은 시간 표시 기능
+  $(document).ready(function () {
+    // 서버에서 남은 시간을 밀리초로 가져옵니다.
+    let remainingTime = parseInt($('#remainingTime').data('remaining-time'), 10);
+
+    // 남은 시간을 화면에 업데이트하는 함수입니다.
+    function updateRemainingTime() {
+      if (remainingTime > 0) {
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+        $('#remainingTime').text(minutes + "분 " + seconds + "초");
+        remainingTime -= 1000;
+      } else {
+        $('#remainingTime').text("토큰 만료됨");
+      }
+    }
+
+    // 1초마다 남은 시간을 업데이트합니다.
+    setInterval(updateRemainingTime, 1000);
+
+    // 로그인 연장 버튼 클릭 시 토큰을 연장하는 AJAX 요청을 보냅니다.
+    $('#extendTokenBtn').click(function () {
+      $.post("/extend-token", function (data) {
+        if (data.jwtToken) {
+          remainingTime = data.remainingTime;
+          updateRemainingTime();
+        } else {
+          alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+          window.location.href = '/account-signin';
+        }
+      }).fail(function () {
+        alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+        window.location.href = '/account-signin';
+      });
+    });
+
+    // 페이지가 로드되면 남은 시간을 초기화합니다.
+    updateRemainingTime();
+
+    // 페이지 로드 시 토큰의 유효성을 검사하는 AJAX 요청을 보냅니다.
+    $.ajax({
+      url: "/check-token",
+      method: "GET",
+      success: function (data) {
+        if (data.valid) {
+          remainingTime = data.remainingTime; // 토큰이 유효할 경우 남은 시간을 갱신합니다.
+          updateRemainingTime();
+        } else {
+          alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+          window.location.href = '/account-signin';
+        }
+      },
+      error: function (xhr) {
+        if (xhr.status === 401) {
+          alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+          window.location.href = '/account-signin';
+        }
+      }
+    });
+  });
+  // 로그인 연장 및 남은 시간 표시 기능 끝
+  // 주문하기 버튼 시작
+  console.log('DOM fully loaded and parsed');
+
+  const orderButton = document.querySelector('.btn-order');
+
+  orderButton.addEventListener('click', function () {
+    const orderItems = getorderItems();
+    const totalPrice = getTotalPrice();
+
+    fetch('/create-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        orderItems: orderItems,
+        totalPrice: totalPrice
+      })
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              window.location.href = '/order-summary';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('주문 처리 중 오류가 발생했습니다.');
+            });
+  });
+
+  function getorderItems() {
+    const items = [];
+    document.querySelectorAll('.product-item').forEach(item => {
+      items.push({
+        productId: item.getAttribute('data-product-id'),
+        productName: item.querySelector('.product-info a').textContent,
+        quantity: item.querySelector('.input-qty').value,
+        price: parseFloat(item.querySelector('.product-price').getAttribute('data-price')),
+        totalPrice: parseFloat(item.querySelector('.product-price').textContent.replace('원', '').trim())
+      });
+    });
+    return items;
+  }
+
+  function getTotalPrice() {
+    let totalPrice = 0;
+    document.querySelectorAll('.product-price').forEach(priceElement => {
+      totalPrice += parseFloat(priceElement.textContent.replace('원', '').trim());
+    });
+    return totalPrice;
+  };
+
+  function getorderItems() {
+    const items = [];
+    document.querySelectorAll('.product-item').forEach(item => {
+      items.push({
+        productId: item.getAttribute('data-product-id'),
+        productName: item.querySelector('.product-info a').textContent,  // 상품명 추가
+        quantity: item.querySelector('.input-qty').value,
+        price: parseFloat(item.querySelector('.product-price').getAttribute('data-price')),  // 단가 추가
+        totalPrice: parseFloat(item.querySelector('.product-price').textContent.replace('원', '').trim())
+      });
+    });
+    return items;
+  }
+
+  function getTotalPrice() {
+    let totalPrice = 0;
+    document.querySelectorAll('.product-price').forEach(priceElement => {
+      totalPrice += parseFloat(priceElement.textContent.replace('원', '').trim());
+    });
+    return totalPrice;
+  };
+
+</script>
+</body>
+</html>

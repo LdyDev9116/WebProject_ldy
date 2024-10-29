@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main Page</title>
+</head>
+<body>
+<h1>Welcome to the Main Page!</h1>
+    <p>ID: <span th:text="${userId}"></span></p>
+    <p>Name: <span th:text="${userName}"></span></p> <!-- 사용자의 이름 출력 -->
+    <p>email: <span th:text="${userEmail}"></span></p> <!-- 사용자의 userEmail 출력 -->
+<a href="@{/logout}">Logout</a>
+</body>
+</html>

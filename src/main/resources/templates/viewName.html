@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JWT Token</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>JWT Token</h1>
+<p>Token: <span id="tokenValue" th:text="${jwtToken}">[Token]</span></p>
+<p>남은 시간: <span id="remainingTime" th:data-remaining-time="${remainingTime}"></span></p>
+<button id="extendTokenBtn">로그인 연장</button>
+<a href="/prd3" id="prd3Link">prd3으로 이동</a>
+
+<script>
+    $(document).ready(function() {
+        let remainingTime = parseInt($('#remainingTime').data('remaining-time'), 10);
+
+        function updateRemainingTime() {
+            if (remainingTime > 0) {
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                $('#remainingTime').text(minutes + "분 " + seconds + "초");
+                remainingTime -= 1000;
+            } else {
+                $('#remainingTime').text("토큰 만료됨");
+            }
+        }
+
+        setInterval(updateRemainingTime, 1000);
+
+        $('#extendTokenBtn').click(function() {
+            $.post("/extend-token", function(data) {
+                if (data.jwtToken) {
+                    $('#tokenValue').text(data.jwtToken);
+                    remainingTime = data.remainingTime;
+                    updateRemainingTime();
+                } else {
+                    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+                    window.location.href = '/account-signin';
+                }
+            }).fail(function() {
+                alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+                window.location.href = '/account-signin';
+            });
+        });
+
+        // Initial call to display the remaining time immediately
+        updateRemainingTime();
+
+        // Check token validity on page load and handle 401 response
+        $.ajax({
+            url: "/check-token",
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + $('#tokenValue').text()
+            },
+            success: function(data) {
+                if (data.valid === false) {
+                    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+                    window.location.href = '/account-signin';
+                }
+            },
+            error: function(xhr) {
+                if (xhr.status === 401) {
+                    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+                    window.location.href = '/account-signin';
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
