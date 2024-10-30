@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freshkit.webproject.user.mapper.AdminMapper">
+
+    <select id="getAllUsers" resultType="com.freshkit.shop.user.dto.AdminDto">
+        SELECT memberId, pwd, name, email, phone, role FROM members
+    </select>
+
+    <select id="getUserById" parameterType="String" resultType="com.freshkit.shop.user.dto.AdminDto">
+        SELECT memberId, pwd, name, email, phone, role FROM members WHERE memberId = #{memberId}
+    </select>
+
+    <insert id="insertUser" parameterType="com.freshkit.shop.user.dto.AdminDto">
+        INSERT INTO members (memberId, pwd, name, email, phone, role)
+        VALUES (#{memberId}, #{pwd}, #{name}, #{email}, #{phone}, #{role})
+    </insert>
+
+    <update id="updateUser" parameterType="com.freshkit.shop.user.dto.AdminDto">
+        UPDATE members SET
+                           pwd = #{pwd},
+                           name = #{name},
+                           email = #{email},
+                           phone = #{phone},
+                           role = #{role}
+        WHERE memberId = #{memberId}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM members WHERE memberId = #{memberId}
+    </delete>
+
+</mapper>
