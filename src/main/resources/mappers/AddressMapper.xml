@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freshkit.webproject.product.mapper.AddressMapper">
+
+
+    <select id="getAddressesByMemberId" parameterType="string" resultType="com.freshkit.shop.product.dto.AddressDTO">
+        SELECT * FROM ADDRESSES WHERE memberId = #{memberId}
+    </select>
+    <insert id="insertAddress" parameterType="com.freshkit.shop.product.dto.AddressDTO">
+        INSERT INTO ADDRESSES (memberId, addressLine1, addressLine2, city, postalCode, deliveryType, isDefault)
+        VALUES (#{memberId}, #{addressLine1}, #{addressLine2}, #{city}, #{postalCode}, #{deliveryType}, #{isDefault})
+    </insert>
+
+    <update id="updateAddress" parameterType="com.freshkit.shop.product.dto.AddressDTO">
+        UPDATE ADDRESSES
+        SET addressLine1 = #{addressLine1},
+            addressLine2 = #{addressLine2},
+            city = #{city},
+            postalCode = #{postalCode},
+            deliveryType = #{deliveryType},
+            isDefault = #{isDefault}
+        WHERE addressId = #{addressId}
+    </update>
+
+    <delete id="deleteAddress" parameterType="int">
+        DELETE FROM ADDRESSES WHERE addressId = #{addressId}
+    </delete>
+
+</mapper>
