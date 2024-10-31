@@ -76,3 +76,5 @@ tasks.named('bootBuildImage') {
 tasks.named('test') {
     useJUnitPlatform() // JUnit을 사용하여 테스트 실행
 }
+
+
