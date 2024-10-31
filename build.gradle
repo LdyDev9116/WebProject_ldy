@@ -68,7 +68,6 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.4' // 크롤링 sort
 
 
-
 }
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest' // Docker 이미지를 빌드하기 위한 빌더 설정
