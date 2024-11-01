@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.freshkit.webproject.user.mapper.MyPageMapper">
+
+    <resultMap id="OrderMap" type="com.freshkit.shop.product.dto.OrderDto">
+        <id property="orderId" column="order_id"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="impUid" column="imp_uid"/>
+        <result property="merchantUid" column="merchant_uid"/>
+        <result property="recipientName" column="name"/>
+        <result property="phoneNumber" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="postcode" column="postcode"/>
+        <result property="address" column="address"/>
+        <result property="detailAddress" column="detail_address"/>
+        <result property="amount" column="amount"/>
+        <result property="pointAmount" column="point_amount"/>
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="deliveryRequest" column="delivery_request"/>
+        <result property="memberId" column="member_id"/>
+        <association property="user" javaType="com.freshkit.shop.user.dto.UserEntity">
+            <result property="name" column="user_name"/>
+            <result property="email" column="user_email"/>
+            <result property="phone" column="user_phone"/>
+            <result property="role" column="user_role"/>
+        </association>
+        <collection property="orderItems" ofType="com.freshkit.shop.product.dto.OrderItemDto" column="order_id" select="getOrderItemsByOrderId"/>
+    </resultMap>
+
+    <resultMap id="OrderItemMap" type="com.freshkit.shop.product.dto.OrderItemDto">
+        <id property="itemId" column="item_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="quantity" column="quantity"/>
+        <result property="price" column="price"/>
+        <result property="totalPrice" column="total_price"/>
+    </resultMap>
+
+    <select id="getOrdersByUserId" resultMap="OrderMap">
+        SELECT
+            ods.order_id AS order_id,
+            ods.total_price AS total_price,
+            ods.created_at AS created_at,
+            ods.imp_uid AS imp_uid,
+            ods.merchant_uid AS merchant_uid,
+            ods.name  AS name,
+            ods.phone AS phone,
+            ods.email,
+            ods.postcode,
+            ods.address,
+            ods.detail_address AS detail_address,
+            ods.amount,
+            ods.point_amount AS point_amount,
+            ods.delivery_date AS delivery_date,
+            ods.delivery_request AS delivery_request,
+            ods.member_id AS member_id,
+            mms.name AS user_name,
+            mms.email AS user_email,
+            mms.phone AS user_phone,
+            mms.role AS user_role
+        FROM orders ods
+                 LEFT JOIN members mms ON ods.member_id = mms.memberId
+        WHERE ods.member_id = #{memberId}
+    </select>
+
+    <select id="getOrderItemsByOrderId" resultMap="OrderItemMap">
+        SELECT
+            oi.item_id AS item_id,
+            oi.order_id AS order_id,
+            oi.product_id AS product_id,
+            oi.product_name AS product_name,
+            oi.quantity AS quantity,
+            oi.price AS price,
+            oi.total_price AS total_price
+        FROM order_items oi
+        WHERE oi.order_id = #{orderId}
+    </select>
+</mapper>
