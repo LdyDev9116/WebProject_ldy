@@ -11,8 +11,6 @@ public class ItemDto {
     private String id;
     private String name;
 
-
-
     public String getId(String id) {
         return this.id;
     }

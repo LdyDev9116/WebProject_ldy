@@ -1,11 +1,5 @@
 package com.freshkit.webproject.quick.mapper;
 
-//import com.ssg.wsmt.smOrders.domain.SmOrdersVo;
-//
-//import com.ssg.wsmt.smOrders.domain.SmOrdersVo;
-//import com.ssg.wsmt.smOrders.dto.SmOrdersDTO;
-//import com.ssg.wsmt.smOrders.enums.SellerSendStatus;
-
 import com.freshkit.webproject.quick.dto.ItemDto;
 import org.apache.ibatis.annotations.Mapper;
 

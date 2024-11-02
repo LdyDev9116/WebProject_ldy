@@ -16,7 +16,6 @@ public class QuickService {
     @Autowired
     QuicksMapper quicksMapper;
 
-
     public boolean temp(ItemDto itemdto){
         log.info("QuickService t서비스임 ");
         return true;
