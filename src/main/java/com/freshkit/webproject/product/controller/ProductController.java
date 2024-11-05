@@ -34,6 +34,9 @@ public class ProductController {
         this.authService = authService;
     }
 
+    /**
+     * 전체 제품 목록을 가져와서 prd3 페이지에 전달
+     */
     @GetMapping("/prd3")
     public String getAllProducts(Model model, HttpServletRequest request) {
         log.info("크롤링 데이터");
@@ -44,6 +47,9 @@ public class ProductController {
         return "prd3";
     }
 
+    /**
+     * 에러 페이지로 이동 (404 에러)
+     */
     @GetMapping("/error-404")
     public String getAllProducts11(Model model, HttpServletRequest request) {
         log.info("크롤링 데이터");
@@ -54,6 +60,9 @@ public class ProductController {
         return "error-404";
     }
 
+    /**
+     * 특정 제품의 상세 정보를 가져와서 shop-single 페이지에 전달
+     */
     @GetMapping("/shop-single")
     public String getProductDetails(@RequestParam Long id, Model model, HttpServletRequest request) {
         log.info("shop-single 출력, ID: " + id);
@@ -68,14 +77,14 @@ public class ProductController {
         Boolean isLoggedIn = authService.isLoggedIn(request);
         model.addAttribute("isLoggedIn", isLoggedIn);
 
-
-        List<ProductDto> relatedProducts =  productService.getProducts();
-        System.out.println("relatedProducts: 값 있니 없니2 ? "+ relatedProducts);
+        List<ProductDto> relatedProducts = productService.getProducts();
         model.addAttribute("relatedProducts", relatedProducts);
         return "shop-single";
     }
 
-
+    /**
+     * 장바구니 페이지를 가져와 shop-cart에 전달
+     */
     @GetMapping("/shop-cart")
     public String getShopCart(Model model, HttpServletRequest request) {
         log.info("shop-cart 출력 ");
@@ -99,8 +108,9 @@ public class ProductController {
         return "shop-cart";
     }
 
-
-
+    /**
+     * 제품을 장바구니에 추가하고, 성공 시 장바구니 페이지로 리다이렉트
+     */
     @PostMapping("/add-to-cart")
     public String addToCart(
             @RequestParam Long productId,
@@ -114,9 +124,7 @@ public class ProductController {
         log.info("사용자 ID: " + userIdStr);
         if (userIdStr != null) {
             try {
-                log.info("장바구니에 추가 전");
                 cartService.addToCart(userIdStr, productId, productName, quantity, price);
-                log.info("장바구니에 추가 성공");
                 return "redirect:/shop-cart";
             } catch (Exception e) {
                 log.error("장바구니 추가 중 오류 발생: ", e);
@@ -129,6 +137,9 @@ public class ProductController {
         }
     }
 
+    /**
+     * 장바구니의 제품 수량을 업데이트 (증가/감소)
+     */
     @PostMapping("/update-cart")
     @ResponseBody
     public ResponseEntity<?> updateCart(@RequestBody UpdateCartRequest request, HttpServletRequest httpRequest) {
@@ -162,6 +173,9 @@ public class ProductController {
         }
     }
 
+    /**
+     * 선택한 제품을 장바구니에서 제거
+     */
     @PostMapping("/remove-selected-from-cart")
     @ResponseBody
     public ResponseEntity<Map<String, String>> removeSelectedFromCart(@RequestBody List<Long> productIds, HttpServletRequest request) {
@@ -185,6 +199,9 @@ public class ProductController {
         }
     }
 
+    /**
+     * 장바구니에서 단일 제품 제거
+     */
     @PostMapping("/remove-from-cart")
     @ResponseBody
     public ResponseEntity<Map<String, String>> removeFromCart(@RequestBody Map<String, Long> payload, HttpServletRequest request) {
@@ -215,6 +232,9 @@ public class ProductController {
         }
     }
 
+    /**
+     * 장바구니의 모든 제품을 제거
+     */
     @PostMapping("/remove-all-from-cart")
     @ResponseBody
     public ResponseEntity<Map<String, String>> removeAllFromCart(HttpServletRequest request) {
@@ -238,6 +258,9 @@ public class ProductController {
         }
     }
 
+    /**
+     * API를 통해 모든 제품을 JSON형식으로 반환 (크롤링 상품 리스트 데이터)
+     */
     @GetMapping("/api/products")
     @ResponseBody
     public ResponseEntity<List<ProductDto>> getProductsApi() {
